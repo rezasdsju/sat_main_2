@@ -158,7 +158,7 @@ def ranking_view(request):
     })
 
 # New result system views
-@login_required
+#@login_required
 def school_mark_input(request):
     """Render the input form for school marks"""
     # Get all saved results for the current user
@@ -261,7 +261,7 @@ def show_school_result(request):
 
 
 
-@login_required
+#@login_required
 def show_school_result(request):
     """Process the form data and display the result"""
     if request.method == 'POST':
@@ -366,7 +366,7 @@ def show_school_result(request):
 
 
 
-@login_required
+#@login_required
 def download_single_csv(request, result_id):
     """Download a single result sheet as CSV"""
     try:
@@ -451,7 +451,7 @@ def download_single_pdf(request, result_id):
 
 from reportlab.lib.styles import ParagraphStyle
 
-@login_required
+#@login_required
 def download_single_pdf(request, result_id):
     """Download a single result sheet as PDF"""
     try:
@@ -584,7 +584,7 @@ def download_single_pdf(request, result_id):
 
 
 
-@login_required
+#@login_required
 def download_all_csv(request):
     """Download all result sheets as a single CSV"""
     result_sheets = ResultSheet.objects.filter(user=request.user)
@@ -675,7 +675,7 @@ def download_all_pdf(request):
     return response"""
 
 
-@login_required
+#@login_required
 def download_all_pdf(request):
     """Download all result sheets as a single PDF"""
     result_sheets = ResultSheet.objects.filter(user=request.user)
@@ -798,7 +798,7 @@ def download_all_pdf(request):
 
      
 
-@login_required
+#@login_required
 def clear_all_results(request):
     """Clear all result sheets for the current user"""
     if request.method == 'POST':
@@ -836,7 +836,7 @@ def calculate_grade_and_gpa(mark, full_mark):
         return 'F', 0.00      
 
 
-@login_required
+#@login_required
 def varsity_mark_input(request):
     """Render the input form for university marks"""
     # Get all saved results for the current user
@@ -957,7 +957,7 @@ def varsity_download_single_csv(request, result_id):
     except ResultSheet.DoesNotExist:
         return HttpResponse("Result not found", status=404)
 
-@login_required
+#@login_required
 def varsity_download_single_pdf(request, result_id):
     """Download a single result sheet as PDF"""
     try:
@@ -1082,7 +1082,7 @@ def varsity_download_single_pdf(request, result_id):
     except ResultSheet.DoesNotExist:
         return HttpResponse("Result not found", status=404)
 
-@login_required
+#@login_required
 def varsity_download_all_csv(request):
     """Download all result sheets as a single CSV"""
     result_sheets = ResultSheet.objects.filter(user=request.user)
@@ -1117,7 +1117,7 @@ def varsity_download_all_csv(request):
             
     return response
 
-@login_required
+#@login_required
 def varsity_download_all_pdf(request):
     """Download all result sheets as a single PDF"""
     result_sheets = ResultSheet.objects.filter(user=request.user)
@@ -1225,7 +1225,7 @@ def varsity_download_all_pdf(request):
     
     return response
 
-@login_required
+#@login_required
 def varsity_clear_all_results(request):
     """Clear all result sheets for the current user"""
     if request.method == 'POST':

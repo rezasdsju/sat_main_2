@@ -84,7 +84,7 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = BASE_DIR / "staticfiles" #নিচের টা কাজ না হলে এইটা আবার add করো
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # কাজ না হলে delete করো
 
-# এখানে add করো সর্বশেষে করেহি 
+# এখানে add করো সর্বশেষে করেহি   
 STATICFILES_DIRS = [
     BASE_DIR / 'home' / 'static',   # home/static এর সব content collect হবে
 ] 
