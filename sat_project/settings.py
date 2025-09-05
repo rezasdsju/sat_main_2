@@ -3,6 +3,8 @@ import os
 from decouple import config
 import dj_database_url
 
+import os # কাজ না হলে delete করো
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,12 +81,13 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
+#STATIC_ROOT = BASE_DIR / "staticfiles" #নিচের টা কাজ না হলে এইটা আবার add করো
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # কাজ না হলে delete করো
 
 # এখানে add করো সর্বশেষে করেহি 
 STATICFILES_DIRS = [
     BASE_DIR / 'home' / 'static',   # home/static এর সব content collect হবে
-]
+] 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
