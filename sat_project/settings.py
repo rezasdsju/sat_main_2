@@ -82,9 +82,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # এখানে add করো সর্বশেষে করেহি 
-STATICFILES_DIRS = [
-    BASE_DIR / 'home' / 'static',   # home/static এর সব content collect হবে
-]
+#STATICFILES_DIRS = [
+#    BASE_DIR / 'home' / 'static',   # home/static এর সব content collect হবে
+#]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
