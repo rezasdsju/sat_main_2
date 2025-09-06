@@ -46,6 +46,8 @@ urlpatterns = [
     path('djn-minor-details/', views.django_minor_details_view, name='djn_minor_details'),
 
     path("python-runner/", views.python_runner, name="python_runner"),
+
+    path("python-child-1/", views.python_child_1_view, name="python_child_1"),
     
 
 ]

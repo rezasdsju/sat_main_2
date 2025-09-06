@@ -1292,3 +1292,5 @@ def django_minor_details_view(request):
     return render(request, 'home/programming/djn_minor_details.html')
 def python_runner(request):
     return render(request, "home/programming/python_runner.html")
+def python_child_1_view(request):
+    return render(request, "home/programming/python_child_1.html")
