@@ -1290,3 +1290,5 @@ def research_hub_view(request):
     return render(request, 'home/research/research_hub.html')
 def django_minor_details_view(request):
     return render(request, 'home/programming/djn_minor_details.html')
+def python_runner(request):
+    return render(request, "home/programming/python_runner.html")

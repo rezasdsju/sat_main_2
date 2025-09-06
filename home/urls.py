@@ -44,6 +44,8 @@ urlpatterns = [
     path('research-hub/', views.research_hub_view, name='research_hub'),
 
     path('djn-minor-details/', views.django_minor_details_view, name='djn_minor_details'),
+
+    path("python-runner/", views.python_runner, name="python_runner"),
     
 
 ]
