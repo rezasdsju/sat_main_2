@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponse
-from django.core import serializers
+from django.core import serializers          
 import json
 import csv
 from reportlab.lib.pagesizes import letter
@@ -18,7 +18,7 @@ from reportlab.lib import colors
 from .models import Student, Exam, ResultSheet
 from django.utils import timezone
 
-# Your existing views
+# Your existing views                   
 #@login_required
 def index(request):
     return render(request, 'home/index.html')
