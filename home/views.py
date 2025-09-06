@@ -1294,3 +1294,5 @@ def python_runner(request):
     return render(request, "home/programming/python_runner.html")
 def python_child_1_view(request):
     return render(request, "home/programming/python_child_1.html")
+def user_auth_tutorial_view(request):
+    return render(request, "home/programming/user_auth.html")
