@@ -265,6 +265,38 @@
     .discussion-content li {
         margin-bottom: 8px;
     }
+
+    .back-buttons {
+    margin-top: 20px;
+    padding: 0 20px 20px;
+}
+
+.back-buttons a {
+    background: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.back-buttons a:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    color: white;
+}
+
+.back-buttons a:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
     
     @media (max-width: 992px) {
         .three-column-layout {
@@ -402,7 +434,10 @@ print("Average age:", df['Age'].mean())</textarea>
             <button class="example-btn" data-example="pandas">Pandas Example</button>
             <button class="example-btn" data-example="numpy">Numpy Example</button>
             <button class="example-btn" data-example="fibonacci">Fibonacci</button>
-            <button class="example-btn" data-example="hello">Hello World</button>
+            <!--<button class="example-btn" data-example="hello">Hello World</button>-->
+        </div>
+        <div class="back-buttons">
+            <a href="{% url 'program_hub' %}">Previous Page</a>
         </div>
     </div>
     
