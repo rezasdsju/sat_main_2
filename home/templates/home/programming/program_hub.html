@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Tutorials Hub | SAT{% endblock %}
+{% block title %}Programming Hub - SAT{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -11,15 +11,8 @@
         width: 100%;
         margin: 0 auto;
         padding: 0 20px;
-        flex: 1;
     }
     
-    /*
-    .page-header {
-        text-align: center;
-        margin-bottom: 40px;
-        padding-top: 20px;
-    }*/
     .page-header {
         text-align: center;
         margin-bottom: 40px;
@@ -27,7 +20,7 @@
         background: rgba(255, 255, 255, 0.1);
         border-radius: 10px;
         backdrop-filter: blur(5px);
-    }  
+    } 
     
     .page-header h1 {
         font-size: 2.5rem;
@@ -40,7 +33,7 @@
     }
     
     .page-header p {
-        color: #2c3e50;
+        color: white;
         font-size: 1.1rem;
         max-width: 700px;
         margin: 0 auto;
@@ -148,7 +141,6 @@
     .button-container {
         display: flex;
         justify-content: center;
-        margin-bottom: 30px;
     }
     
     /* Responsive styles */
@@ -182,7 +174,7 @@
 <div class="container">
     <div class="page-header">
         <h1>Programming Hub</h1>
-        <p>Take your programming skills to the next level. Explore our collection of programming tutorials and resources.</p>
+        <p>Explore our collection of tutorials on Programming. Click on any topic to start learning.</p>
     </div>
     
     <div class="category">
@@ -191,11 +183,11 @@
         </div>
         <div class="topics-grid">
             <div class="topic-card">
-                <a href="{% url 'conf_matrix' %}">Minor Details</a>
+                <a href="{% url 'djn_minor_details' %}">Minor Details</a>
             </div>
-            <!--<div class="topic-card">
+            <div class="topic-card">
                 <a href='#'>K-Nearest Neighbors (KNN)</a>
-            </div> 
+            </div>
             <div class="topic-card">
                 <a href='#'>Artificial Neural Networks (ANN)</a>
             </div>
@@ -203,7 +195,7 @@
                 <a href='#'>Random Forest</a>
             </div>
             <div class="topic-card">
-                <a href='#'>Decision Tree</a>
+                <a href="#">Decision Tree</a>
             </div>
             <div class="topic-card">
                 <a href='#'>Fuzzy C-means Clustering</a>
@@ -228,11 +220,11 @@
             </div>
             <div class="topic-card">
                 <a href='#'>Inferential Statistics</a>
-            </div>-->
+            </div>
         </div>
     </div>
     
-    <!--<div class="category physics">
+    <div class="category physics">
         <div class="category-header">
             <h2><i class="fas fa-atom"></i> HSC Physics</h2>
         </div>
@@ -277,57 +269,10 @@
                 <a href='#'>Magnetism</a>
             </div>
         </div>
-    </div>-->
-
-    <!--<div class="category physics">
-        <div class="category-header">
-            <h2><i class="fas fa-language"></i>English</h2>
-        </div>
-        <div class="topics-grid">
-            <div class="topic-card">
-                <a href='#'>Narration</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Dynamics</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Newtonian Mechanics</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Work, Power and Energy</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Gravitation and Gravity</a>
-            </div>
-            <div class="topic-card">
-                <a href='surface_tension.html'>Structural Properties of Matter</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Periodic Motion</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Wave Mechanics</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Ideal Gas Law</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Thermodynamics</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Electrostatics</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Current Electricity</a>
-            </div>
-            <div class="topic-card">
-                <a href='#'>Magnetism</a>
-            </div>
-        </div>
-    </div>-->
+    </div>
     
     <div class="button-container">
-        <a href='{% url "index" %}' class='back-button'>
+        <a href="{% url 'index' %}" class='back-button'>
             <i class="fas fa-arrow-left"></i> Back to Home
         </a>
     </div>

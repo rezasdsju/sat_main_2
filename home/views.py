@@ -1288,3 +1288,5 @@ def programming_hub_view(request):
     return render(request, 'home/programming/program_hub.html')
 def research_hub_view(request):
     return render(request, 'home/research/research_hub.html')
+def django_minor_details_view(request):
+    return render(request, 'home/programming/djn_minor_details.html')

@@ -41,6 +41,9 @@ urlpatterns = [
     path('pdf-hub/', views.pdf_hub_view, name='pdf_hub'),
     path('vector-pdf/', views.vector_pdf_view, name='vec_pdf'),
     path('programming-hub/', views.programming_hub_view, name='program_hub'),
-    path('research-hub/', views.research_hub_view, name='research_hub')
+    path('research-hub/', views.research_hub_view, name='research_hub'),
+
+    path('djn-minor-details/', views.django_minor_details_view, name='djn_minor_details'),
+    
 
 ]
