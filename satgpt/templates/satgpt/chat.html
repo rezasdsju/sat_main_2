@@ -13,7 +13,6 @@
     </div>
     
     <div id="chatbox">
-        {% if not chat_history %}
         <div class="welcome-message">
             <p>Hello! I'm SatGPT, your SAT preparation assistant. How can I help you today?</p>
             <div class="quick-questions">
@@ -23,14 +22,6 @@
                 <button class="suggestion-chip" data-question="What's the best way to practice for the SAT?">Best practice methods</button>
             </div>
         </div>
-        {% else %}
-            {% for chat in chat_history %}
-            <div class="message {% if chat.is_user %}user-message{% else %}bot-message{% endif %}">
-                {{ chat.message|linebreaks }}
-                <div class="message-time">{{ chat.timestamp|date:"g:i A" }}</div>
-            </div>
-            {% endfor %}
-        {% endif %}
     </div>
     
     <div class="typing-indicator" id="typing-indicator">
@@ -326,6 +317,19 @@ document.addEventListener('DOMContentLoaded', function() {
     document.documentElement.setAttribute('data-theme', savedTheme);
     themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
     
+    // Load chat history if available
+    const chatHistory = JSON.parse(localStorage.getItem('satgpt_chat_history') || '[]');
+    if (chatHistory.length > 0) {
+        // Remove welcome message if there's history
+        document.querySelector('.welcome-message').style.display = 'none';
+        
+        // Render chat history
+        chatHistory.forEach(msg => {
+            addMessageToChatbox(msg.text, msg.sender, msg.timestamp);
+        });
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+    
     // Theme toggle functionality
     themeToggle.addEventListener('click', function() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -339,35 +343,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear chat history
     clearChatBtn.addEventListener('click', function() {
         if (confirm('Are you sure you want to clear the chat history?')) {
-            // Send request to server to clear chat history
-            fetch('/satgpt/clear-chat/', {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': getCookie('csrftoken'),
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Clear UI
-                    const welcomeMessage = document.querySelector('.welcome-message');
-                    if (welcomeMessage) {
-                        welcomeMessage.style.display = 'block';
-                    }
-                    
-                    // Remove all messages except welcome message
-                    const messages = document.querySelectorAll('.message');
-                    messages.forEach(msg => msg.remove());
-                    
-                    // Scroll to top
-                    chatbox.scrollTop = 0;
-                }
-            })
-            .catch(error => {
-                console.error('Error clearing chat:', error);
-                alert('Failed to clear chat history. Please try again.');
-            });
+            // Clear UI
+            const welcomeMessage = document.querySelector('.welcome-message');
+            welcomeMessage.style.display = 'block';
+            
+            while (chatbox.children.length > 1) {
+                chatbox.removeChild(chatbox.lastChild);
+            }
+            
+            // Clear storage
+            localStorage.removeItem('satgpt_chat_history');
+            
+            // Scroll to welcome message
+            chatbox.scrollTop = 0;
         }
     });
     
@@ -411,12 +399,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Scroll to bottom
         chatbox.scrollTop = chatbox.scrollHeight;
         
-        // Hide welcome message if it exists
-        const welcomeMessage = document.querySelector('.welcome-message');
-        if (welcomeMessage) {
-            welcomeMessage.style.display = 'none';
-        }
-        
         // Send message to backend
         fetch(`/satgpt/get-response/?message=${encodeURIComponent(message)}`)
             .then(response => response.json())
@@ -426,16 +408,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     typingIndicator.classList.remove('active');
                     addMessageToChatbox(data.reply, 'bot');
                     chatbox.scrollTop = chatbox.scrollHeight;
+                    
+                    // Save to chat history
+                    saveChatHistory();
                 }, 1000);
             })
             .catch(error => {
                 typingIndicator.classList.remove('active');
                 addMessageToChatbox("Sorry, I'm having trouble connecting right now. Please try again later.", 'bot');
                 console.error('Error:', error);
+                
+                // Save to chat history even if there's an error
+                saveChatHistory();
             });
     }
     
-    function addMessageToChatbox(text, sender) {
+    function addMessageToChatbox(text, sender, timestamp = null) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message');
         messageDiv.classList.add(sender + '-message');
@@ -447,27 +435,28 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add timestamp
         const timeElement = document.createElement('div');
         timeElement.classList.add('message-time');
-        timeElement.textContent = new Date().toLocaleTimeString();
+        timeElement.textContent = timestamp || new Date().toLocaleTimeString();
         messageDiv.appendChild(timeElement);
         
         chatbox.appendChild(messageDiv);
     }
     
-    // Function to get CSRF token
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
+    function saveChatHistory() {
+        const messages = [];
+        document.querySelectorAll('.message').forEach(msg => {
+            const sender = msg.classList.contains('user-message') ? 'user' : 'bot';
+            const text = msg.textContent.replace(/\\d{1,2}:\\d{2}(:\\d{2})?\\s[AP]M$/, '').trim();
+            const timestamp = msg.querySelector('.message-time').textContent;
+            
+            messages.push({
+                text: text,
+                sender: sender,
+                timestamp: timestamp
+            });
+        });
+        
+        localStorage.setItem('satgpt_chat_history', JSON.stringify(messages));
     }
 });
 </script>
-{% endblock %} 
+{% endblock %}
