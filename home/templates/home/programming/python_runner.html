@@ -239,6 +239,7 @@
     
     .discussion-content p {
         margin-bottom: 15px;
+        color: blue;
     }
     
     .discussion-content code {
@@ -246,6 +247,7 @@
         padding: 2px 5px;
         border-radius: 3px;
         font-family: 'Courier New', monospace;
+        color: red;
     }
     
     .discussion-content pre {
@@ -260,6 +262,7 @@
     .discussion-content ul {
         margin-left: 20px;
         margin-bottom: 15px;
+        color: #2c3e50;
     }
     
     .discussion-content li {
@@ -438,12 +441,12 @@ print("Average age:", df['Age'].mean())</textarea>
         </div>
         <div class="back-buttons">
             <a href="{% url 'python_child_1' %}">Previous Page</a>
-        </div>
+        </div>  
     </div>
-    
+    <!-- 
     <div class="python-runner-footer">
         <p>Powered by Pyodide - Python running in your browser | © 2023 Python Code Runner</p>
-    </div>
+    </div> -->
 </div>
 {% endblock %}
 
