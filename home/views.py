@@ -89,7 +89,7 @@ def submit_exam(request):
             return JsonResponse({'success': True})
         
         else:
-            # Handle regular form submission (যদি有其他 form থাকে)
+            # Handle regular form submission (যদি form থাকে)
             return JsonResponse({'success': False, 'error': 'Invalid request type'})
     
     return JsonResponse({'success': False, 'error': 'Invalid request'})
