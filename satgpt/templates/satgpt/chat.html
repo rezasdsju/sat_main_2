@@ -1,0 +1,462 @@
+{% extends "base.html" %}
+
+{% block title %}SatGPT - SAT{% endblock %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>🤖 SatGPT - SAT Assistant</h2>
+        <div class="header-controls">
+            <button id="theme-toggle" class="icon-btn">🌙</button>
+            <button id="clear-chat" class="icon-btn" title="Clear chat">🗑️</button>
+        </div>
+    </div>
+    
+    <div id="chatbox">
+        <div class="welcome-message">
+            <p>Hello! I'm SatGPT, your SAT preparation assistant. How can I help you today?</p>
+            <div class="quick-questions">
+                <p>Try asking:</p>
+                <button class="suggestion-chip" data-question="What are some SAT math tips?">SAT math tips</button>
+                <button class="suggestion-chip" data-question="How to improve my reading score?">Improve reading score</button>
+                <button class="suggestion-chip" data-question="What's the best way to practice for the SAT?">Best practice methods</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="typing-indicator" id="typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <div class="input-container">
+        <input type="text" id="user-input" placeholder="Type your question here..." autocomplete="off" />
+        <button id="send-button" class="send-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" fill="currentColor"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<style>
+:root {
+    --primary-color: #4f46e5;
+    --secondary-color: #6366f1;
+    --bg-color: #f9fafb;
+    --card-bg: #ffffff;
+    --text-color: #1f2937;
+    --border-color: #e5e7eb;
+    --user-msg-bg: #4f46e5;
+    --bot-msg-bg: #f3f4f6;
+    --user-msg-text: #ffffff;
+    --bot-msg-text: #1f2937;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] {
+    --primary-color: #6366f1;
+    --secondary-color: #818cf8;
+    --bg-color: #111827;
+    --card-bg: #1f2937;
+    --text-color: #f9fafb;
+    --border-color: #374151;
+    --user-msg-bg: #6366f1;
+    --bot-msg-bg: #374151;
+    --user-msg-text: #ffffff;
+    --bot-msg-text: #f3f4f6;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    height: 100vh;
+    background-color: var(--bg-color);
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.icon-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#chatbox {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.welcome-message {
+    background-color: var(--card-bg);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1rem;
+}
+
+.quick-questions {
+    margin-top: 1rem;
+}
+
+.quick-questions p {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.suggestion-chip {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.suggestion-chip:hover {
+    opacity: 0.9;
+}
+
+.message {
+    max-width: 80%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    margin-bottom: 0.5rem;
+    animation: fadeIn 0.3s ease-in;
+    box-shadow: var(--shadow);
+    line-height: 1.5;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: var(--user-msg-bg);
+    color: var(--user-msg-text);
+    border-bottom-right-radius: 0.25rem;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: var(--bot-msg-bg);
+    color: var(--bot-msg-text);
+    border-bottom-left-radius: 0.25rem;
+}
+
+.message-time {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-top: 0.25rem;
+    text-align: right;
+}
+
+.typing-indicator {
+    display: none;
+    padding: 0 1.5rem 1rem;
+}
+
+.typing-indicator.active {
+    display: flex;
+}
+
+.typing-indicator span {
+    height: 8px;
+    width: 8px;
+    background: var(--text-color);
+    border-radius: 50%;
+    margin: 0 2px;
+    opacity: 0.6;
+    animation: typing 1s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.input-container {
+    display: flex;
+    padding: 1rem 1.5rem;
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    gap: 0.5rem;
+}
+
+#user-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    outline: none;
+}
+
+#user-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+.send-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.send-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.send-btn:disabled {
+    background-color: var(--border-color);
+    cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes typing {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@media (max-width: 768px) {
+    .chat-container {
+        height: 100vh;
+        border-radius: 0;
+    }
+    
+    .message {
+        max-width: 90%;
+    }
+    
+    .chat-header {
+        padding: 1rem;
+    }
+    
+    .input-container {
+        padding: 1rem;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatbox = document.getElementById('chatbox');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const themeToggle = document.getElementById('theme-toggle');
+    const clearChatBtn = document.getElementById('clear-chat');
+    
+    // Load saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    
+    // Load chat history if available
+    const chatHistory = JSON.parse(localStorage.getItem('satgpt_chat_history') || '[]');
+    if (chatHistory.length > 0) {
+        // Remove welcome message if there's history
+        document.querySelector('.welcome-message').style.display = 'none';
+        
+        // Render chat history
+        chatHistory.forEach(msg => {
+            addMessageToChatbox(msg.text, msg.sender, msg.timestamp);
+        });
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('theme', newTheme);
+    });
+    
+    // Clear chat history
+    clearChatBtn.addEventListener('click', function() {
+        if (confirm('Are you sure you want to clear the chat history?')) {
+            // Clear UI
+            const welcomeMessage = document.querySelector('.welcome-message');
+            welcomeMessage.style.display = 'block';
+            
+            while (chatbox.children.length > 1) {
+                chatbox.removeChild(chatbox.lastChild);
+            }
+            
+            // Clear storage
+            localStorage.removeItem('satgpt_chat_history');
+            
+            // Scroll to welcome message
+            chatbox.scrollTop = 0;
+        }
+    });
+    
+    // Quick question buttons
+    document.querySelectorAll('.suggestion-chip').forEach(button => {
+        button.addEventListener('click', function() {
+            userInput.value = this.getAttribute('data-question');
+            sendMessage();
+        });
+    });
+    
+    // Send message on button click
+    sendButton.addEventListener('click', sendMessage);
+    
+    // Send message on Enter key
+    userInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+    // Enable/disable send button based on input
+    userInput.addEventListener('input', function() {
+        sendButton.disabled = !userInput.value.trim();
+    });
+    
+    function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+        
+        // Add user message to chat
+        addMessageToChatbox(message, 'user');
+        
+        // Show typing indicator
+        typingIndicator.classList.add('active');
+        
+        // Clear input and disable send button
+        userInput.value = '';
+        sendButton.disabled = true;
+        
+        // Scroll to bottom
+        chatbox.scrollTop = chatbox.scrollHeight;
+        
+        // Send message to backend
+        fetch(`/satgpt/get-response/?message=${encodeURIComponent(message)}`)
+            .then(response => response.json())
+            .then(data => {
+                // Simulate typing delay for better UX
+                setTimeout(() => {
+                    typingIndicator.classList.remove('active');
+                    addMessageToChatbox(data.reply, 'bot');
+                    chatbox.scrollTop = chatbox.scrollHeight;
+                    
+                    // Save to chat history
+                    saveChatHistory();
+                }, 1000);
+            })
+            .catch(error => {
+                typingIndicator.classList.remove('active');
+                addMessageToChatbox("Sorry, I'm having trouble connecting right now. Please try again later.", 'bot');
+                console.error('Error:', error);
+                
+                // Save to chat history even if there's an error
+                saveChatHistory();
+            });
+    }
+    
+    function addMessageToChatbox(text, sender, timestamp = null) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.classList.add(sender + '-message');
+        
+        // Format message with line breaks
+        const formattedText = text.replace(/\n/g, '<br>');
+        messageDiv.innerHTML = formattedText;
+        
+        // Add timestamp
+        const timeElement = document.createElement('div');
+        timeElement.classList.add('message-time');
+        timeElement.textContent = timestamp || new Date().toLocaleTimeString();
+        messageDiv.appendChild(timeElement);
+        
+        chatbox.appendChild(messageDiv);
+    }
+    
+    function saveChatHistory() {
+        const messages = [];
+        document.querySelectorAll('.message').forEach(msg => {
+            const sender = msg.classList.contains('user-message') ? 'user' : 'bot';
+            const text = msg.textContent.replace(/\\d{1,2}:\\d{2}(:\\d{2})?\\s[AP]M$/, '').trim();
+            const timestamp = msg.querySelector('.message-time').textContent;
+            
+            messages.push({
+                text: text,
+                sender: sender,
+                timestamp: timestamp
+            });
+        });
+        
+        localStorage.setItem('satgpt_chat_history', JSON.stringify(messages));
+    }
+});
+</script>
+{% endblock %}
