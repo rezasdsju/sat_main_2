@@ -317,19 +317,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.documentElement.setAttribute('data-theme', savedTheme);
     themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
     
-    // Load chat history if available
-    const chatHistory = JSON.parse(localStorage.getItem('satgpt_chat_history') || '[]');
-    if (chatHistory.length > 0) {
-        // Remove welcome message if there's history
-        document.querySelector('.welcome-message').style.display = 'none';
-        
-        // Render chat history
-        chatHistory.forEach(msg => {
-            addMessageToChatbox(msg.text, msg.sender, msg.timestamp);
-        });
-        chatbox.scrollTop = chatbox.scrollHeight;
-    }
-    
     // Theme toggle functionality
     themeToggle.addEventListener('click', function() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -342,20 +329,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Clear chat history
     clearChatBtn.addEventListener('click', function() {
-        if (confirm('Are you sure you want to clear the chat history?')) {
+        if (confirm('Are you sure you want to clear the chat?')) {
             // Clear UI
             const welcomeMessage = document.querySelector('.welcome-message');
             welcomeMessage.style.display = 'block';
             
-            while (chatbox.children.length > 1) {
-                chatbox.removeChild(chatbox.lastChild);
-            }
-            
-            // Clear storage
-            localStorage.removeItem('satgpt_chat_history');
-            
-            // Scroll to welcome message
-            chatbox.scrollTop = 0;
+            // Remove all messages except the welcome message
+            const messages = document.querySelectorAll('.message');
+            messages.forEach(msg => msg.remove());
         }
     });
     
@@ -386,6 +367,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const message = userInput.value.trim();
         if (!message) return;
         
+        // Hide welcome message after first user message
+        const welcomeMessage = document.querySelector('.welcome-message');
+        if (welcomeMessage.style.display !== 'none') {
+            welcomeMessage.style.display = 'none';
+        }
+        
         // Add user message to chat
         addMessageToChatbox(message, 'user');
         
@@ -408,22 +395,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     typingIndicator.classList.remove('active');
                     addMessageToChatbox(data.reply, 'bot');
                     chatbox.scrollTop = chatbox.scrollHeight;
-                    
-                    // Save to chat history
-                    saveChatHistory();
                 }, 1000);
             })
             .catch(error => {
                 typingIndicator.classList.remove('active');
                 addMessageToChatbox("Sorry, I'm having trouble connecting right now. Please try again later.", 'bot');
                 console.error('Error:', error);
-                
-                // Save to chat history even if there's an error
-                saveChatHistory();
             });
     }
     
-    function addMessageToChatbox(text, sender, timestamp = null) {
+    function addMessageToChatbox(text, sender) {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message');
         messageDiv.classList.add(sender + '-message');
@@ -435,27 +416,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add timestamp
         const timeElement = document.createElement('div');
         timeElement.classList.add('message-time');
-        timeElement.textContent = timestamp || new Date().toLocaleTimeString();
+        timeElement.textContent = new Date().toLocaleTimeString();
         messageDiv.appendChild(timeElement);
         
         chatbox.appendChild(messageDiv);
-    }
-    
-    function saveChatHistory() {
-        const messages = [];
-        document.querySelectorAll('.message').forEach(msg => {
-            const sender = msg.classList.contains('user-message') ? 'user' : 'bot';
-            const text = msg.textContent.replace(/\\d{1,2}:\\d{2}(:\\d{2})?\\s[AP]M$/, '').trim();
-            const timestamp = msg.querySelector('.message-time').textContent;
-            
-            messages.push({
-                text: text,
-                sender: sender,
-                timestamp: timestamp
-            });
-        });
-        
-        localStorage.setItem('satgpt_chat_history', JSON.stringify(messages));
     }
 });
 </script>
