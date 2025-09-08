@@ -10,7 +10,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 
 # Railway Free Tier subdomain deploy করার জন্য
-ALLOWED_HOSTS = ['*']  # Development/testing purpose, production এ আপনার actual Railway subdomain ব্যবহার করুন
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])  # Development/testing purpose, production এ আপনার actual Railway subdomain ব্যবহার করুন
 
 # ================== INSTALLED APPS ==================
 INSTALLED_APPS = [
