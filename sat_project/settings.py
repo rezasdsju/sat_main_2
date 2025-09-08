@@ -11,6 +11,11 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 # Railway Free Tier subdomain deploy করার জন্য
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
+# CSRF trusted origins (production deploy এর জন্য)
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{host.strip()}" for host in ALLOWED_HOSTS if host.strip() not in ['127.0.0.1', 'localhost']
+]
+
 # ================== INSTALLED APPS ==================
 INSTALLED_APPS = [
     'django.contrib.admin',
