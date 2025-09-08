@@ -488,92 +488,181 @@
 
 const QUESTIONS = [
   {
-    id: 1,
+    id:1,
+    q: "<span>Pick the correct part to fill the gap of the following sentence --<br>Each of the sons followed __ father's trade</span><span class='bcs-tag'>33th BCS</span>",
+    options: ["their", "her", "whose", "his"],
+    answer: 3,
+    explain: "Answer --(D) <br> 'each of the sons' এর each একবচন, তাই এর পরিবর্তে his/her ব্যবহার করা যায়। কিন্তু 'son' masculine হওয়ার কারনে his লিখতে হবে"
+  },
+  {
+    id:2,
+    q: "<span>'He was a rather disagreeable man.' Here the word 'disagreeable' is a/an --</span><span class='bcs-tag'>35th BCS</span>",
+    options: ["Noun", "Adjective", "Adverb", "Preposition"],
+    answer: 1,
+    explain: "Answer --(B) <br> Disagreeable মানে বিবাদমান বা বিসদৃশ। এটি একটি adjective. সাধারণত শব্দের শেষে able,ate,ain,ry,ous ইত্যাদি শব্দাংশ যুক্ত হলে শব্দটি adjective হয়।"
+  },
+  {
+    id: 3,
     q: "<span>'by and large' means--</span><span class='bcs-tag'>44th BCS</span>",
     options: ["everywhere", "very large", "mostly", "far away"],
     answer: 2,
     explain: "Answer --(B) <br> ব্যাখ্যা: 'by and large' অর্থ প্রধানত বা মূলত, 'mostly' অর্থ অধিকাংশ ক্ষেত্রে বা অধিকাংশে <br> 'very large মানে হল-খুব বড়,far away মানে দূরে। সুতরাং 'by and large' মানে হল-'mostly'  "
   },
   {
-    id:2,
+    id:4,
     q: "<span> What is the plural form of 'Sheep'?</span><span class='bcs-tag'>44th BCS</span>",
     options: ["Sheeps", "Sheep", "Sheepses", "Sheepen"],
     answer: 1,
     explain: "Answer --(B) <br> ব্যাখ্যা: 'Sheep' এর বহুবচনও 'Sheep'। এটি একটি অস্বাভাবিক বহুবচন। "
   },
   {
-    id:3,
+    id:5,
     q: "<span> 'to get along with' means--</span><span class='bcs-tag'>44th BCS</span>",
     options: ["to adjust", "to interest", "to accompany", "to walk"],
     answer: 0,
     explain: "Answer --(A) <br> ব্যাখ্যা: 'to get along with' এর অর্থ হল 'to adjust' বা 'মিলিয়ে চলা'। "
   },
   {
-    id:4,
+    id:6,
     q: "<span>What kind of noun is 'river'</span><span class='bcs-tag'>44th BCS</span>",
     options: ["Common noun", "Proper noun", "Collective noun", "Abstract noun"],
     answer: 0,
     explain: "Answer --(A) <br> ব্যাখ্যা: 'river' common  noun কারন river দ্বারা কোন নির্দিষ্ট river কে বুঝানো হয় নি। তাছাড়া কোন শব্দ যখন একজাতীয় প্রাণী ও বস্তুর সকলকেই বুঝায় তখন তাকে Common Noun বলে।"
   },
   {
-    id:5,
+    id:7,
     q: "<span>Fill in the blank: 'She went to New Market__'</span><span class='bcs-tag'>43th BCS</span>",
     options: ["on feet", "by foot", "by walking","on foot"],
     answer: 3,
     explain: "Answer --(D) <br> ব্যাখ্যা: <br> সাধারণত কোন জায়গায় পায়ে হেঁটে যাওয়া বুঝাতে 'on foot' ব্যবহার করা হয়। <br> অন্য দিকে 'by' সাধারণত পরিবহনের একটি মাধ্যমে (যেমনঃ ট্রেন, গাড়ি, নৌকা, প্লেন ইত্যাদি) কোথাও যাওয়া বুঝাতে ব্যবহার হয়। তাই 'by foot' হবে না। <br> আবার, 'walking' শব্দটি gerund বা present participle, তাই এর আগে 'by' যুক্তিযুক্ত নয়। "
   },
   {
-    id:6,
+    id:8,
     q: "<span>Fill in the gap: 'Birds fly __ in the sky.'</span><span class='bcs-tag'>43th BCS</span>",
     options: ["random", "at large", "at a stitch","are long"],
     answer: 1,
     explain: "Answer--(B) <br> ব্যাখ্যা: 'at large' অর্থ 'মুক্তভাবে' বা 'বিনা বাধায়'। <br> অন্য দিকে, 'random' অর্থ 'যে কোনভাবে'<br> 'at a stitch' অর্থ 'একটানা' বা 'বিরতিহীনভাবে'<br> 'are long' অর্থ 'দীর্ঘ'। <br> সুতরাং Birds fly at large in the sky. অর্থ পাখিরা আকাশে মুক্তভাবে উড়ে。" 
   },
   {
-    id:7,
+    id:9,
     q: "<span>'To doctor an animal' means--</span><span class='bcs-tag'>42th BCS</span>",
     options: ["to treat it", "to sterilize it", "to poison it","to cure it"],
     answer: 1,
     explain: "Answer--(B) <br> ব্যাখ্যা: 'to doctor an animal' এর অর্থ হল 'to sterilize it' বা 'একটি প্রাণীকে নির্বীজিত করা'। <br> অন্য দিকে, 'to treat it' অর্থ 'এটি চিকিৎসা করা', 'to poison it' অর্থ 'এটি বিষাক্ত করা', এবং 'to cure it' অর্থ 'এটি নিরাময় করা'। <br> সুতরাং সঠিক উত্তর হল 'to sterilize it'।"
   },
   {
-    id:8,
+    id:10,
     q: "<span>Identify the determiner in the sentence 'Bring me that book'</span><span class='bcs-tag'>42th BCS</span>",
     options: ["bring", "me", "that","book"],
     answer: 2,
     explain: "Answer--(C) <br> ব্যাখ্যা: <br> যেসকল শব্দ Noun এর পূর্বে বসে Noun এর নির্দিষ্টতা, অনির্দিষ্টতা, পরিমাণ, সংখ্যা ইত্যাদি নির্দেশ করে, তাকে determiner বলে। 'That' হল demonstrative determiner. Demonstrative pronoun গুলো যেমন- this,that,these,those হল demonstrative determiner. <br> অন্য দিকে, 'bring' একটি verb, 'me' একটি pronoun, এবং 'book' একটি noun। সুতরাং সঠিক উত্তর হল 'that'।"
   },
   {
-    id:9,
+    id:11,
     q: "<span>What is the noun form of the word 'know'?</span><span class='bcs-tag'>41th BCS</span>",
     options: ["knowing", "knowledge", "knowledgeable","known"],
     answer: 1,
     explain: "Answer--(B) <br> ব্যাখ্যা: 'know' এর noun form হল 'knowledge'। 'knowing' হল gerund বা present participle, 'knowledgeable' হল adjective, এবং 'known' হল past participle। সুতরাং সঠিক উত্তর হল 'knowledge'।"
   },
   {
-    id:10,
+    id:12,
     q: "<span>Identify the word that can be used as both singular and plural:</span><span class='bcs-tag'>41th BCS</span>",
     options: ["wood", "issue", "fish","light"],
     answer: 2,
     explain: "Answer--(C) <br> ব্যাখ্যা: 'fish' শব্দটি একবচন এবং বহুবচন উভয় ক্ষেত্রেই ব্যবহৃত হয়। উদাহরণস্বরূপ, 'I caught a fish' (একবচন) এবং 'I caught three fish' (বহুবচন)। অন্যদিকে, 'wood', 'issue', এবং 'light' শব্দগুলি সাধারণত একবচন বা বহুবচন হিসাবে ব্যবহৃত হয় না।"
   },
   {
-    id:11,
+    id:13,
     q: "<span>Identify the determiner in the following sentence 'I have no news for you'</span><span class='bcs-tag'>40th BCS</span>",
     options: ["have", "news", "no","for"],
     answer: 2,
     explain: "Answer--(C) <br> ব্যাখ্যা: <br> যেসকল শব্দ Noun এর পূর্বে বসে Noun এর নির্দিষ্টতা, অনির্দিষ্টতা, পরিমাণ, সংখ্যা ইত্যাদি নির্দেশ করে, তাকে determiner বলে। 'No' হল determiner যা এখানে 'news' এর পরিমাণ নির্দেশ করছে। <br> অন্য দিকে, 'have' একটি verb, 'news' একটি noun, এবং 'for' একটি preposition। সুতরাং সঠিক উত্তর হল 'no'।"
   },
   {
-    id:12,
+    id:14,
     q: "<span>He does not adhere __ any principle</span><span class='bcs-tag'>45th BCS</span>",
     options: ["by", "in", "at","to"],
     answer: 3,
     explain: "Answer--(D) <br> ব্যাখ্যা: 'adhere to' একটি phrase যার অর্থ 'কোনো কিছু মেনে চলা' বা 'অনুসরণ করা'। তাই সঠিক উত্তর হল 'to'। <br> অন্য দিকে, 'by', 'in', এবং 'at' এই context এ সঠিক preposition নয়।"
   },
+  {
+  id:15,
+  q: "<span>The passive form of the sentence 'Some children were helping the wounded man'__</span><span class='bcs-tag'>20th BCS</span>",
+  options: ["The wonded man was helped by some children", "The wounded man was helping some children","The wounded man was being helped by some children","The wounded man was to be helped by some children"],
+  answer: 2,
+  explain: "Answer--(C) <br> ব্যাখ্যা: <br> 'Some children were helping the wounded man' এর passive form হল 'The wounded man was being helped by some children'। এখানে 'being helped' passive voice নির্দেশ করে। <br> অন্যদিকে, 'The wounded man was helped by some children' একটি সম্পূর্ণ ভিন্ন অর্থ প্রকাশ করে। 'The wounded man was helping some children' এবং 'The wounded man was to be helped by some children' এই দুটি অপশনও সঠিক নয়।"
+  },
+  {
+    id:16,
+    q: "<span>'To read between the lines' means--</span><span class='bcs-tag'>17th BCS</span>", 
+    options: ["to read carefully", "to read only some lines", "to read quickly to save times","to read carefully to find out any hidden meaning"],
+    answer: 3,
+    explain: "Answer--(D) <br> ব্যাখ্যা: 'To read between the lines' এর অর্থ হল 'গোপন বা অপ্রকাশিত অর্থ বোঝার জন্য মনোযোগ সহকারে পড়া'। সুতরাং সঠিক উত্তর হল 'to read carefully to find out any hidden meaning'।"
+  },
+  {
+    id:17,
+    q: "<span>A fantasy is --</span><span class='bcs-tag'>16th BCS</span>",
+    options: ["an imaginary story", "a funny film", "a history record", "a real-life event"],
+    answer: 0,
+    explain: "Answer--(A) <br> ব্যাখ্যা: 'A fantasy' হল একটি কাল্পনিক গল্প যা বাস্তবতার বাইরে। সুতরাং সঠিক উত্তর হল 'an imaginary story'।"
+  },
+  {
+    id:18,
+    q: "<span>Which of the following is a correct sentence?</span><span class='bcs-tag'>15th BCS</span>",
+    options: ["He was too clever not to miss the point","He was so clever to miss the point","He was too clever to miss the point","He was clever to grasp the point"],
+    answer: 2,
+    explain: "Answer--(C) <br> ব্যাখ্যা: 'He was too clever to miss the point' এই বাক্যটি সঠিক। এর মানে হল যে সে এত বুদ্ধিমান ছিল যে সে বিষয়টি মিস করতে পারেনি। অন্যদিকে, অন্যান্য বাক্যগুলি সঠিক নয়।"
+  },
+  {
+    id:19,
+    q: "<span>Are you doing anything special __ the week-end?</span><span class='bcs-tag'>15th BCS</span>",
+    options: ["in", "for", "on", "at"],
+    answer: 3,
+    explain: "Answer--(D) <br> ব্যাখ্যা: 'at the weekend' একটি প্রচলিত phrase যা সপ্তাহান্তে কিছু করার জন্য ব্যবহৃত হয়। সুতরাং সঠিক উত্তর হল 'at'।"
+  },
+  {
+    id:20,
+    q: "<span>Trying unitedly we were able to have our project approved against strong oppositions.<br> Which of the following says nearly the same as 'against' above?</span><span class='bcs-tag'>14th BCS</span>",
+    options: ["in the wake of", "in the guise of", "in the plea of", "in the teeth of"],
+    answer: 3,
+    explain: "Answer--(D) <br> ব্যাখ্যা: 'in the teeth of' অর্থ 'বিরুদ্ধ' বা 'বিপরীতে'। এটি 'against' এর সমার্থক। অন্যদিকে, 'in the wake of' অর্থ 'পরবর্তীতে', 'in the guise of' অর্থ 'ছদ্মবেশে', এবং 'in the plea of' অর্থ 'অর্জনের জন্য'। সুতরাং সঠিক উত্তর হল 'in the teeth of'।"
+  },
+  {
+    id:21,
+    q: "<span>Which phrase contains words opposed to each other in meaning?</span><span class='bcs-tag'>23th BCS</span>",
+    options: ["Hopes and aspirations", "Heat and dust", "Reproduction and death", "Emerged and advanced"],
+    answer: 2,
+    explain: "Answer--(C) <br> ব্যাখ্যা: 'Reproduction and death' এই phrase এ 'reproduction' এবং 'death' শব্দ দুটি পরস্পরের বিপরীত অর্থ প্রকাশ করে। অন্যদিকে, অন্যান্য phrase গুলোতে এমন কোন শব্দ নেই যা পরস্পরের বিপরীত অর্থ প্রকাশ করে। সুতরাং সঠিক উত্তর হল 'Reproduction and death'।"
+  },
+  {
+    id:22,
+    q: "<span>The synonym for 'Obdurate' --</span><span class='bcs-tag'>24th BCS</span>",
+    options: ["Deceitful", "Stubborn", "Sly", "Swindler"],
+    answer: 1,
+    explain: "Answer--(B) <br> ব্যাখ্যা: 'Obdurate' এর অর্থ হল 'অবিচলিত' বা 'দৃঢ়'। এর সমার্থক শব্দ হল 'Stubborn'। অন্যদিকে, 'Deceitful' এর অর্থ হল 'প্রতারণামূলক', 'Sly' এর অর্থ হল 'চতুর', এবং 'Swindler' এর অর্থ হল 'প্রতারণাকারী'। সুতরাং সঠিক উত্তর হল 'Stubborn'।"
+  },
+  {
+    id:23,
+    q: "<span>Water boils __ you heat it to $100^\\circ$ Centigrade.</span><span class='bcs-tag'>24th BCS</span>",
+    options: ["unless", "untill", "if", "although"],
+    answer: 2,
+    explain: "Answer--(C) <br> ব্যাখ্যাঃ এটি একটি zero conditional sentence। Zero conditional sentence এ 'if' ব্যবহার করা হয় যেখানে, if যুক্ত clause এবং অপর clause উভয়ই Present Indefinite tense এর হয়। বৈজ্ঞানিক সত্ত,চিরন্তন সত্য ইত্যাদি ক্ষেত্রে zero conditional sentence হয়। সুতরাং সঠিক উত্তর হল 'if'। <br> অন্যদিকে, 'unless' অর্থ 'যদি না', 'until' অর্থ 'যতক্ষণ না', এবং 'although' অর্থ 'যদিও'। এই শব্দগুলি এখানে প্রযোজ্য নয়।"
+  }, 
+  {
+    id:24,
+    q: "<span>I finally killed the fly __ a rolled up newspaper.</span><span class='bcs-tag'>25th BCS</span>",
+    options: ["by", "with", "through", "from"],
+    answer: 1,
+    explain: "Answer--(B) <br> 'by' শব্দটি বোঝায় সাধারণত ঘটনাটি বুঝাতে, আর 'with' বসে কোন tool বা বস্তু বুঝাতে। এখানে মাছিটা কী দ্বারা মারা হল সেটা বুঝাচ্ছে। এজন্য 'with a rolled up newspaper' হবে।"
+  },
+  {
+    id:25,
+    q: "<span>Travellers ___ their reservation will in advance if they want to visit the St.Martins island.</span><span class='bcs-tag'>32th BCS</span>",
+    options: ["had better to get", "had to better get", "had better get", "had better got"],
+    answer: 2,
+    explain: "Answer--(C) <br> had better এর মাঝে preposition বসে না। আবার had better এর immediate পরের word ও preposition হয় না। had better এর পরে verb এর base form বসে।"
+  },
 ];
-
-
 
 
 
