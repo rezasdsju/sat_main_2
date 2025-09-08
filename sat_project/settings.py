@@ -1,16 +1,15 @@
 from pathlib import Path
 import os
-from decouple import config
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ================== SECURITY ==================
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', cast=bool)
+SECRET_KEY = os.environ.get('SECRET_KEY', 'fallback-secret-key')  # Fallback just in case
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 # Railway Free Tier subdomain deploy করার জন্য
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])  # Development/testing purpose, production এ আপনার actual Railway subdomain ব্যবহার করুন
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 # ================== INSTALLED APPS ==================
 INSTALLED_APPS = [
